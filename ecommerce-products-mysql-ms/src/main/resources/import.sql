@@ -1,0 +1,10 @@
+insert into product (id, name, description, price, stock) values (100, 'laptop', 'laptop de gama alta', 1500.50, 25);
+insert into product (id, name, description, price, stock) values (101, 'mouse', 'mouse logitech', 25.80, 40);
+insert into product (id, name, description, price, stock) values (102, 'teclado', 'teclado thinkpad', 150.00, 70);
+insert into product (id, name, description, price, stock) values (103, 'televisor', 'tv sony 55 pulgadas', 1250.00, 100);
+insert into product (id, name, description, price, stock) values (104, 'refrigeradora', 'refrigeradora samsung', 800.50, 15);
+insert into product (id, name, description, price, stock) values (105, 'celular samsung', 'celular samsung A12', 300.00, 20);
+insert into product (id, name, description, price, stock) values (106, 'iphone', 'iphone 15', 900.00, 10);
+insert into product (id, name, description, price, stock) values (107, 'nintendo', 'nintendo switch', 350.10, 18);
+insert into product (id, name, description, price, stock) values (108, 'playstation 4', 'playstation 4 con mandos', 200.50, 5);
+insert into product (id, name, description, price, stock) values (109, 'playstation 5', 'playstation 5 con un mando', 500.50, 11);
