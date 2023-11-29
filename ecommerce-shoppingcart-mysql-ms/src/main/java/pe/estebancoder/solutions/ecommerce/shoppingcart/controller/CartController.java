@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.estebancoder.solutions.ecommerce.shoppingcart.dto.AddCartItemRequest;
 import pe.estebancoder.solutions.ecommerce.shoppingcart.dto.UpdateCartItemRequest;
+import pe.estebancoder.solutions.ecommerce.shoppingcart.feignclient.response.Product;
 import pe.estebancoder.solutions.ecommerce.shoppingcart.model.Cart;
 import pe.estebancoder.solutions.ecommerce.shoppingcart.service.CartService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -67,5 +70,11 @@ public class CartController {
     public ResponseEntity<Cart> cancelCart(@RequestParam Long customerId) {
         Cart cart = cartService.cancelCart(customerId);
         return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+    @GetMapping("/products/{customer_id}")
+    public ResponseEntity<List<Product>> getProductsFromCart(@PathVariable("customer_id") Long customerId) {
+        List<Product> products = cartService.getProductsFromCart(customerId);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

@@ -3,7 +3,6 @@ package pe.estebancoder.solutions.ecommerce.products.service;
 import pe.estebancoder.solutions.ecommerce.products.model.Product;
 
 import java.util.List;
-
 import java.util.Optional;
 
 public interface ProductService {

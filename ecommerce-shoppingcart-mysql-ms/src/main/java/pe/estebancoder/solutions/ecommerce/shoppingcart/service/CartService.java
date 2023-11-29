@@ -1,6 +1,9 @@
 package pe.estebancoder.solutions.ecommerce.shoppingcart.service;
 
+import pe.estebancoder.solutions.ecommerce.shoppingcart.feignclient.response.Product;
 import pe.estebancoder.solutions.ecommerce.shoppingcart.model.Cart;
+
+import java.util.List;
 
 public interface CartService {
 
@@ -14,4 +17,6 @@ public interface CartService {
     Cart checkoutCart(Long customerId);
 
     Cart cancelCart(Long customerId);
+
+    List<Product> getProductsFromCart(Long customerId);
 }

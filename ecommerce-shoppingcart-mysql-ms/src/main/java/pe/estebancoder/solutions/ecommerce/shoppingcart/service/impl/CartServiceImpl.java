@@ -14,7 +14,9 @@ import pe.estebancoder.solutions.ecommerce.shoppingcart.service.CartService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -60,7 +62,7 @@ public class CartServiceImpl implements CartService {
             cartItem.setQuantity(cartItem.getQuantity() + quantity); // Incrementar la cantidad si el producto ya está en el carrito
             cartItemRepository.save(cartItem); // Guardar el CartItem actualizado
         } else {
-            // llamar al microservicio producto para obtener su precio
+            // Llamar al microservicio producto para obtener su precio
             ResponseEntity<Product> responseEntity = productService.getProductById(productId);
             Product product = responseEntity.getBody();
 
@@ -170,4 +172,29 @@ public class CartServiceImpl implements CartService {
             throw new IllegalArgumentException("No se encontró ningún carrito en proceso para cancelar");
         }
     }
+
+    // Para efectos de probar el balanceo de peticiones a products
+
+    public List<Product> getProductsFromCart(Long customerId){
+        List<Product> products = new ArrayList<>();
+        Optional<Cart> optionalCart = cartRepository.findByCustomerIdAndStatus(customerId, Cart.CartStatus.IN_PROCESS);
+        if (optionalCart.isPresent()) {
+            Cart cart = optionalCart.get();
+            List<CartItem> cartItems = cart.getCartItems();
+
+            // Obtener una lista de IDs de productos desde los cartItems
+            List<Long> productIds = cartItems.stream()
+                    .map(CartItem::getProductId)
+                    .collect(Collectors.toList());
+
+            // Llamar al microservicio producto para obtener el detalle de product
+            ResponseEntity<List<Product>> responseEntity = productService.getProductsByIds(productIds);
+            products = responseEntity.getBody();
+
+        } else {
+            throw new IllegalArgumentException("Carrito no encontrado o no está en proceso");
+        }
+        return products;
+    }
+
 }
